@@ -51,9 +51,9 @@
         
         <div class="col-md-9" id="main-content">
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col">
-                    <div class="card" id="current-card">
+                    <div class="card display-none" id="current-card">
                         <div class="card-body">
                             <h2>
                                 <span id="current-name"></span>
@@ -61,7 +61,7 @@
                                 <img id="current-icon">
                             </h2>
                             <div id="current-info">
-                                <p>Temperature: <span id="current-temp"></span></p>
+                                <p><span id="current-temp">Temperature: </span></p>
                                 <p>Humidity: <span id="current-hum"></span></p>
                                 <p>Windspeed: <span id="current-wind"></span></p>
                                 <p>UV Index: <span id="current-uv"></span></p>
@@ -69,15 +69,39 @@
                         </div>
                     </div>
                 </div>
+            </div> -->
+
+            <div class="row" id="current-card">
+                <!-- <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2>
+                                <img id="current-icon" src="">
+                            </h2>
+                            <div id="current-info">
+                                <p>Temperature: </p>
+                                <p>Humidity: </p>
+                                <p>Windspeed: </p>
+                                <p>UV Index: </p>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
             </div>
 
+
+
             <div class="row">
-                <div class="col">
-                    <h4>5-Day Forecast:</h4>
+                <div class="col" id="forecast-header">
+                    <!-- APPEND 5-DAY HEADER HERE -->
                 </div>
             </div>
 
+            
             <div class="row" id="forecast-cards">
+
+                <!-- APPEND DAILY CARDS HERE-->
+
                 <!-- <div class="col">
                     <div class="card text-white bg-primary">
                         <div class="card-body">

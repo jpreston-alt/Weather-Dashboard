@@ -50,25 +50,33 @@ function getWeatherData(searchCity) {
         }).then(function (response) {
             console.log(response);
 
-            // ****** Current weather ******** //
+            // ****** CURRENT WEATHER ******** //
             var current = response.current;
+
+            // save current weather data to variables
             var currentDate = moment.unix(current.dt).format('M/D/YYYY');
-            var temp = Math.round((current.temp * (9 / 5)) - 459.67);
+            var currentTemp = Math.round((current.temp * (9 / 5)) - 459.67);
             var windSpeedMPH = (current.wind_speed * 2.23694).toFixed(1);
+            var currentIconURL = "http://openweathermap.org/img/wn/" + current.weather[0].icon + ".png";
+            var currentUV = current.uvi;
+            var currentHum = current.humidity;
 
-            // display on DOM
-            $("#current-name").text(searchCity);
-            $("#current-date").text("(" + currentDate + ")");
-            $("#current-icon").attr("src", "http://openweathermap.org/img/wn/" + current.weather[0].icon + ".png")
-            $("#current-temp").html(temp + "&#176;");
-            $("#current-hum").text(current.humidity + "%");
-            $("#current-wind").text(windSpeedMPH + " MPH");
-            $("#current-uv").text(current.uvi);
+            // generate current card based on current weather variables
+            var currentCard = $('<div class="col"><div class="card"><div class="card-body"><h2>' + searchCity + " (" + currentDate + ")" + '<img id="current-icon" src=' + currentIconURL +'></h2><div id="current-info"><p>Temperature: ' + currentTemp + '</p><p>Humidity: ' + currentHum + '</p><p>Windspeed: ' + windSpeedMPH + '</p><p>UV Index: ' + currentUV + '</p></div></div></div></div >')
+
+            // append current card to document
+            $("#current-card").append(currentCard);
 
 
 
-            // ****** 5-Day Forecast ******** //
+            // ****** 5-DAY FORECAST ******** //
             var daily = response.daily
+
+            var forecastHeader = $('<h4>5-Day Forecast:</h4>');
+            $("#forecast-header").append(forecastHeader);
+
+
+            // pull daily data for 5 days using for loop, save to variables and render to the DOM using newly generated cards
             for (var i = 1; i < 6; i++) {
                 
                 var dailyDate = moment.unix(daily[i].dt).format('M/D/YYYY');
@@ -76,15 +84,15 @@ function getWeatherData(searchCity) {
                 var dailyHum = daily[i].humidity + "%";
                 var dailyIconURL = "http://openweathermap.org/img/wn/" + daily[i].weather[0].icon + ".png";
 
-                var newForecastCard = $('<div class="col"><div class= "card text-white bg-primary"><div class="card-body"><h5 class="card-title">' + dailyDate + '</h5><img class="forecast-icon" src=' + dailyIconURL + '><p class="card-text">Temp: ' + dailyTemp + '</p><p class="card-text">Humidity: '+ dailyHum + '</p></div></div></div>');
 
-                $("#forecast-cards").append(newForecastCard);
+                // generate new daily forecast card using daily data
+                var dailyCard = $('<div class="col"><div class= "card text-white bg-primary"><div class="card-body"><h5 class="card-title">' + dailyDate + '</h5><img class="forecast-icon" src=' + dailyIconURL + '><p class="card-text">Temp: ' + dailyTemp + '</p><p class="card-text">Humidity: '+ dailyHum + '</p></div></div></div>');
 
-                
+                dailyCard.addClass("forecast-card");
 
+                // append new daily card to forecast cards div
+                $("#forecast-cards").append(dailyCard);
             }
-
-
         })
     })
 };
