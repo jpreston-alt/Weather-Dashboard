@@ -26,8 +26,8 @@
 
 
     <div class="row">
-        <div class="container col-md-3" id="sidebar">
-            <div>
+        <div class="col-md-3" id="sidebar">
+            <div> 
                 <h5>Search for a City:</h5>
             </div>
             
@@ -49,17 +49,23 @@
             </div>
         </div>
         
-        <div class="container col-md-9" id="main-content">
+        <div class="col-md-9" id="main-content">
 
             <div class="row">
                 <div class="col">
-                    <div class="card" id="current-container">
+                    <div class="card" id="current-card">
                         <div class="card-body">
-                            <h3>City Name & Date</h3>
-                            <p>Temperature:</p>
-                            <p>Humidity:</p>
-                            <p>Windspeed:</p>
-                            <p>UV Index:</p>
+                            <h2>
+                                <span id="current-name"></span>
+                                <span id="current-date"></span>
+                                <img id="current-icon">
+                            </h2>
+                            <div id="current-info">
+                                <p>Temperature: <span id="current-temp"></span></p>
+                                <p>Humidity: <span id="current-hum"></span></p>
+                                <p>Windspeed: <span id="current-wind"></span></p>
+                                <p>UV Index: <span id="current-uv"></span></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -75,72 +81,57 @@
                 <div class="col">
                     <div class="card text-white bg-primary forecast-card">
                         <div class="card-body">
-                            <h5 class="card-title">Date</h5>
-                            <p class="card-text">Icon</p>
-                            <p class="card-text">Temp:</p>
-                            <p class="card-text">Humidity:</p>
+                            <h5 class="card-title forecast-date">Date</h5>
+                            <img class="forecast-icon">
+                            <p class="card-text forecast-temp">Temp:</p>
+                            <p class="card-text forecast-hum">Humidity:</p>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card text-white bg-primary forecast-card">
                         <div class="card-body">
-                            <h5 class="card-title">Date</h5>
-                            <p class="card-text">Icon</p>
-                            <p class="card-text">Temp:</p>
-                            <p class="card-text">Humidity:</p>
+                            <h5 class="card-title forecast-date">Date</h5>
+                            <img class="forecast-icon">
+                            <p class="card-text forecast-temp">Temp:</p>
+                            <p class="card-text forecast-hum">Humidity:</p>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card text-white bg-primary forecast-card">
                         <div class="card-body">
-                            <h5 class="card-title">Date</h5>
-                            <p class="card-text">Icon</p>
-                            <p class="card-text">Temp:</p>
-                            <p class="card-text">Humidity:</p>
+                            <h5 class="card-title forecast-date">Date</h5>
+                            <img class="forecast-icon">
+                            <p class="card-text forecast-temp">Temp:</p>
+                            <p class="card-text forecast-hum">Humidity:</p>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card text-white bg-primary forecast-card">
                         <div class="card-body">
-                            <h5 class="card-title">Date</h5>
-                            <p class="card-text">Icon</p>
-                            <p class="card-text">Temp:</p>
-                            <p class="card-text">Humidity:</p>
+                            <h5 class="card-title forecast-date">Date</h5>
+                            <img class="forecast-icon">
+                            <p class="card-text forecast-temp">Temp:</p>
+                            <p class="card-text forecast-hum">Humidity:</p>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card text-white bg-primary forecast-card">
                         <div class="card-body">
-                            <h5 class="card-title">Date</h5>
-                            <p class="card-text">Icon</p>
-                            <p class="card-text">Temp:</p>
-                            <p class="card-text">Humidity:</p>
+                            <h5 class="card-title forecast-date">Date</h5>
+                            <img class="forecast-icon">
+                            <p class="card-text forecast-temp">Temp:</p>
+                            <p class="card-text forecast-hum">Humidity:</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            
-
-            
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     <!-- Link jQuery -->
@@ -148,6 +139,9 @@
    
     <!-- Link js file -->
     <script src="script.js"></script>
+
+    <!-- link moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     
 </body>
 </html>
