@@ -1,5 +1,3 @@
-
-
 h1 {
     color: white;
     font-size: 50px;
@@ -9,11 +7,10 @@ h1 {
 
 #sidebar {
     background-color: rgb(234, 237, 238);
-    padding: 10px 25px 25px 25px;
+    padding: 10px 10px 25px 25px;
 }
 
 #current-container {
-    margin-top: 15px;
     margin-bottom: 30px;
 }
 
@@ -21,7 +18,25 @@ h3 {
     margin-bottom: 25px;
 }
 
+#main-content {
+    padding-top: 10px;
+}
+
 .forecast-card {
-    margin-bottom: 0px;
+    margin-bottom: 25px;
+}
+
+
+@media only screen and (min-width: 768px) {
+    #main-content {
+        padding-right: 25px;
+        padding-left: 10px
+    }
+}
+
+@media only screen and (min-width: 918px) {
+    .forecast-card {
+        margin-bottom: 0px;
+    }
 }
 
