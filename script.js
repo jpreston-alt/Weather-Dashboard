@@ -28,9 +28,11 @@ var long;
 //          + 5 day forcast: date, icon, temperature, humidity
 
 
-function getCords() {
+function getWeatherData(searchCity) {
+    
     var cordsURL = "https://api.opencagedata.com/geocode/v1/json?q=" + searchCity + "&key=bc3ff0db1a6d4ff49ac9914be9c0da3b&limit=1";
 
+    // get latitude and longitude coordinates using city name via opencage API
     $.ajax({
         url: cordsURL,
         method: "GET"
@@ -41,83 +43,53 @@ function getCords() {
         long = response.results[0].geometry.lng;
         var weatherURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&appid=5e347807f48ed981edea55456e7fea41"
 
-
+        // use lat and long points to get data from openweather API
         $.ajax({
             url: weatherURL,
             method: "GET"
         }).then(function (response) {
             console.log(response);
 
-            // current weather
+            // ****** Current weather ******** //
             var current = response.current;
+            var currentDate = moment.unix(current.dt).format('M/D/YYYY');
+            var temp = Math.round((current.temp * (9 / 5)) - 459.67);
+            var windSpeedMPH = (current.wind_speed * 2.23694).toFixed(1);
+
+            // display on DOM
             $("#current-name").text(searchCity);
+            $("#current-date").text("(" + currentDate + ")");
+            $("#current-icon").attr("src", "http://openweathermap.org/img/wn/" + current.weather[0].icon + ".png")
+            $("#current-temp").html(temp + "&#176;");
             $("#current-hum").text(current.humidity + "%");
+            $("#current-wind").text(windSpeedMPH + " MPH");
             $("#current-uv").text(current.uvi);
 
-            var currentDate = moment.unix(current.dt).format('M/D/YYYY');
-            $("#current-date").text("(" + currentDate + ")");
-
-            
-
-            var tempK = current.temp;
-            var tempF = Math.round((tempK * (9 / 5)) - 459.67);
-            $("#current-temp").html(tempF + "&#176;");
-
-            var windSpeedMS = current.wind_speed;
-            var windSpeedMPH = (windSpeedMS * 2.23694).toFixed(1) + " MPH";
-            $("#current-wind").text(windSpeedMPH);
 
 
-            
+            // ****** 5-Day Forecast ******** //
+            var daily = response.daily
+            for (var i = 1; i < 6; i++) {
+                
+                var dailyDate = moment.unix(daily[i].dt).format('M/D/YYYY');
+                var dailyTemp = Math.round((daily[i].temp.max * (9 / 5)) - 459.67) + "&#176;";
+                var dailyHum = daily[i].humidity + "%";
+                var dailyIconURL = "http://openweathermap.org/img/wn/" + daily[i].weather[0].icon + ".png";
+
+                var newForecastCard = $('<div class="col"><div class= "card text-white bg-primary"><div class="card-body"><h5 class="card-title">' + dailyDate + '</h5><img class="forecast-icon" src=' + dailyIconURL + '><p class="card-text">Temp: ' + dailyTemp + '</p><p class="card-text">Humidity: '+ dailyHum + '</p></div></div></div>');
+
+                $("#forecast-cards").append(newForecastCard);
+
+                
+
+            }
+
 
         })
-
-
-
-
     })
 };
 
-getCords();
-
-function getData() {
-    var apiKey = "&appid=5e347807f48ed981edea55456e7fea41"
-    var currentURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + apiKey;
-    var icon;
-    var temp;
-    var humidity;
-    var windspeed;
-    var UV;
-
-    var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchCity + apiKey;
-
-
-
-    $.ajax({
-        url: currentURL,
-        method: "GET"
-    }).then(function (response) {
-        console.log(response);
-        $("#current-name").text(response.name);
-        $("#current-date").text(currentDate);
-        $("#current-hum").text(response.main.humidity + "%");
-        
-        
-
-        var tempK = response.main.temp;
-        var tempF = Math.round((tempK * (9 / 5)) - 459.67);
-        $("#current-temp").html(tempF + "&#176;");
-
-        var windSpeedMS = response.wind.speed;
-        var windSpeedMPH = (windSpeedMS * 2.23694).toFixed(1) + " MPH";
-        $("#current-wind").text(windSpeedMPH);
-        
-
-    });
-};
-
-// getData();
-
+getWeatherData(searchCity);
 
 
 
