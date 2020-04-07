@@ -55,13 +55,10 @@ function getWeatherData(searchCity) {
             $("current-icon").attr("src", currentIconURL);
             $("#current-uv").text(currentUV);
 
-
+            // colorize UV index element depeding on value
             var UVindex = currentUV;
             var uvEl = $("#current-uv");
-
-            console.log(UVindex);
             
-
             if (UVindex <= 2) {
                 uvEl.removeClass("moderate high severe");
                 uvEl.addClass("low");
@@ -131,9 +128,17 @@ $(document).ready(function () {
         getWeatherData(searchCity);
     });
 
+    // Create event listener for clear button
+    $(document).on("click", "#clear-btn", function (event) {
+        event.preventDefault();
+        searchArr = [];
+        renderButtons();
+        setStorage();
+    });
+
 });
 
-// create funciton to generate city button when user searches for a city
+// create funciton to generate city buttons
 function renderButtons() {
     $("#city-list").empty();
     for (var i = 0; i < searchArr.length; i++) {
@@ -161,17 +166,15 @@ function pullStorage() {
     };
 };
 
-// * Create a function that renders items from local storage to DOM
-//      - search history items
-//      - last searched city is displayed on DOM
-
 // * Create an init function
 //      - calls function to pull from local storage
 //      - calls function to render from local storage
 //      - sets searchedCity to last searched city from local storage
 function init() {
     pullStorage();
-    searchCity = lastCity;
+    if (lastCity) {
+        searchCity = lastCity;
+    }
     getWeatherData(searchCity);
 };
 
