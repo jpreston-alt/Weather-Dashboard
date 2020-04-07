@@ -13,7 +13,7 @@ var searchArr = [];
 var lastCity;
 var searchCity = "Seattle";
 
-getWeatherData(searchCity);
+// getWeatherData(searchCity);
 
 // Defines a function for getting weather data
 function getWeatherData(searchCity) {
@@ -53,6 +53,7 @@ function getWeatherData(searchCity) {
             var currentUV = current.uvi;
             var currentHum = current.humidity + "%";
 
+            // adds data to DOM
             $("#current-header").text(searchCity + " (" + currentDate + ")");
             $("#current-temp").html(currentTemp);
             $("#current-hum").text(currentHum);
@@ -66,17 +67,19 @@ function getWeatherData(searchCity) {
             
             // loops through 5 days of daily forcast data
             for (var i = 1; i < 6; i++) {
-                
+                // for each of the five days:
+
                 // saves data to variables
                 var dailyDate = moment.unix(daily[i].dt).format('M/D/YYYY');
                 var dailyTemp = Math.round((daily[i].temp.max * (9 / 5)) - 459.67) + "&#176;";
                 var dailyHum = daily[i].humidity + "%";
                 var dailyIconURL = "http://openweathermap.org/img/wn/" + daily[i].weather[0].icon + ".png";
 
-                $(".daily-date")[i - 1].textContent = dailyDate;
-                $(".daily-temp")[i - 1].innerHTML = dailyTemp;
-                $(".daily-hum")[i - 1].textContent = dailyHum;
-                $(".daily-icon")[i - 1].setAttribute("src", dailyIconURL);
+                // adds to the DOM
+                $(".daily-date").eq(i - 1).text(dailyDate);
+                $(".daily-temp").eq(i - 1).html(dailyTemp);
+                $(".daily-hum").eq(i - 1).text(dailyHum);
+                $(".daily-icon").eq(i - 1).attr("src", dailyIconURL);
 
             }
         })
@@ -101,6 +104,7 @@ $(document).ready(function () {
             genCityButton();
             searchArr.push(searchCity);
             lastCity = searchCity;
+            setStorage();
         };
     });
 
@@ -125,18 +129,46 @@ function genCityButton() {
 //      - store search history
 //      - store last searched city
 function setStorage() {
-    
-}
+    JSONsearchArr = JSON.stringify(searchArr);
+    localStorage.setItem("search-history", JSONsearchArr);
 
+    JSONlastCity = JSON.stringify(lastCity);
+    localStorage.setItem("last-city", JSONlastCity);
+};
 
 // * Create a function to pull from local storage
 //      - pulls search history
 //      - pulls last searched city
+function pullStorage() {
+    var searchHistory = JSON.parse(localStorage.getItem("search-history"));
+    var lastSearchedCity = JSON.parse(localStorage.getItem("last-city"));
+
+    // only save to array and render if there are entries stored in local storage
+    if (searchHistory !== null) {
+        searchArr = searchHistory;
+        // renderEntries();
+    }
+
+    if (lastSearchedCity !== null) {
+        lastCity = lastSearchedCity;
+        // renderEntries();
+    }
+}
 // * Create a function that renders items from local storage to DOM
 //      - search history items
 //      - last searched city is displayed on DOM
+
 // * Create an init function
 //      - calls function to pull from local storage
 //      - calls function to render from local storage
 //      - sets searchedCity to last searched city from local storage
+
+function init() {
+    pullStorage();
+    searchCity = lastCity;
+    getWeatherData(searchCity);
+};
+
 // * Call init function
+
+init();
