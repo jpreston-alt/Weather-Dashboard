@@ -13,13 +13,8 @@ var searchArr = [];
 var lastCity;
 var searchCity = "Seattle";
 
-// getWeatherData(searchCity);
-
 // Defines a function for getting weather data
 function getWeatherData(searchCity) {
-    // $("#forecast-cards").empty();
-    // $("#forecast-header").empty();
-    // $("#current-card").empty();
     
     // get latitude and longitude coordinates using city name via opencage API
     var cordsURL = "https://api.opencagedata.com/geocode/v1/json?q=" + searchCity + "&key=bc3ff0db1a6d4ff49ac9914be9c0da3b&limit=1";
@@ -101,8 +96,8 @@ $(document).ready(function () {
         if (searchInput !== "") {
             searchCity = searchInput;
             getWeatherData(searchCity);
-            genCityButton();
             searchArr.push(searchCity);
+            renderButtons();
             lastCity = searchCity;
             setStorage();
         };
@@ -119,41 +114,33 @@ $(document).ready(function () {
 });
 
 // create funciton to generate city button when user searches for a city
-function genCityButton() {
-    var cityBtn = $('<button type="button" class="list-group-item list-group-item-action city-btn"></button>')
-    cityBtn.text(searchCity);
-    $("#city-list").append(cityBtn);
+function renderButtons() {
+    $("#city-list").empty();
+    for (var i = 0; i < searchArr.length; i++) {
+        var cityBtn = $('<button type="button" class="list-group-item list-group-item-action city-btn"></button>')
+        cityBtn.text(searchArr[i]);
+        $("#city-list").append(cityBtn);
+    }
 };
 
-// * Create a funciton to store data in local storage
-//      - store search history
-//      - store last searched city
+// * Create a funciton to store search history in local storage
 function setStorage() {
     JSONsearchArr = JSON.stringify(searchArr);
     localStorage.setItem("search-history", JSONsearchArr);
-
-    JSONlastCity = JSON.stringify(lastCity);
-    localStorage.setItem("last-city", JSONlastCity);
 };
 
-// * Create a function to pull from local storage
-//      - pulls search history
-//      - pulls last searched city
+// * Create a function to pulls search history from local storage
 function pullStorage() {
     var searchHistory = JSON.parse(localStorage.getItem("search-history"));
-    var lastSearchedCity = JSON.parse(localStorage.getItem("last-city"));
 
-    // only save to array and render if there are entries stored in local storage
+    // only save to array and render if there is history stored in local storage
     if (searchHistory !== null) {
         searchArr = searchHistory;
-        // renderEntries();
-    }
+        lastCity = searchArr[searchArr.length - 1];
+        renderButtons();
+    };
+};
 
-    if (lastSearchedCity !== null) {
-        lastCity = lastSearchedCity;
-        // renderEntries();
-    }
-}
 // * Create a function that renders items from local storage to DOM
 //      - search history items
 //      - last searched city is displayed on DOM
@@ -162,7 +149,6 @@ function pullStorage() {
 //      - calls function to pull from local storage
 //      - calls function to render from local storage
 //      - sets searchedCity to last searched city from local storage
-
 function init() {
     pullStorage();
     searchCity = lastCity;
@@ -170,5 +156,4 @@ function init() {
 };
 
 // * Call init function
-
 init();
