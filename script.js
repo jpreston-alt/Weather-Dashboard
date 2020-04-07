@@ -35,7 +35,6 @@ function getWeatherData(searchCity) {
             url: weatherURL,
             method: "GET"
         }).then(function (response) {
-            console.log(response);
 
             // ****** CURRENT WEATHER ******** //
             var current = response.current;
@@ -45,16 +44,37 @@ function getWeatherData(searchCity) {
             var currentTemp = Math.round((current.temp * (9 / 5)) - 459.67) + "&#176;";
             var windSpeed = (current.wind_speed * 2.23694).toFixed(1) + " MPH";
             var currentIconURL = "http://openweathermap.org/img/wn/" + current.weather[0].icon + ".png";
-            var currentUV = current.uvi;
             var currentHum = current.humidity + "%";
+            var currentUV = current.uvi;
 
             // adds data to DOM
             $("#current-header").text(searchCity + " (" + currentDate + ")");
             $("#current-temp").html(currentTemp);
             $("#current-hum").text(currentHum);
             $("#current-wind").text(windSpeed);
-            $("#current-uv").text(currentUV);
             $("current-icon").attr("src", currentIconURL);
+            $("#current-uv").text(currentUV);
+
+
+            var UVindex = currentUV;
+            var uvEl = $("#current-uv");
+
+            console.log(UVindex);
+            
+
+            if (UVindex <= 2) {
+                uvEl.removeClass("moderate high severe");
+                uvEl.addClass("low");
+            } else if (UVindex > 2 && UVindex <= 5) {
+                uvEl.removeClass("low high severe");
+                uvEl.addClass("moderate");
+            } else if (UVindex > 5 && UVindex <= 7) {
+                uvEl.removeClass("moderate low severe");
+                uvEl.addClass("high");
+            } else {
+                uvEl.removeClass("moderate high low");
+                uvEl.addClass("severe");
+            };
 
 
             // ****** 5-DAY FORECAST ******** //
