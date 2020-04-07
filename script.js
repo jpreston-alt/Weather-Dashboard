@@ -11,15 +11,15 @@
 
 var searchArr = [];
 var lastCity;
-var searchCity = "Tampa";
+var searchCity = "Seattle";
 
-
+getWeatherData(searchCity);
 
 // Defines a function for getting weather data
 function getWeatherData(searchCity) {
-    $("#forecast-cards").empty();
-    $("#forecast-header").empty();
-    $("#current-card").empty();
+    // $("#forecast-cards").empty();
+    // $("#forecast-header").empty();
+    // $("#current-card").empty();
     
     // get latitude and longitude coordinates using city name via opencage API
     var cordsURL = "https://api.opencagedata.com/geocode/v1/json?q=" + searchCity + "&key=bc3ff0db1a6d4ff49ac9914be9c0da3b&limit=1";
@@ -48,27 +48,22 @@ function getWeatherData(searchCity) {
             // save current weather data to variables
             var currentDate = moment.unix(current.dt).format('M/D/YYYY');
             var currentTemp = Math.round((current.temp * (9 / 5)) - 459.67) + "&#176;";
-            var windSpeedMPH = (current.wind_speed * 2.23694).toFixed(1);
+            var windSpeed = (current.wind_speed * 2.23694).toFixed(1) + " MPH";
             var currentIconURL = "http://openweathermap.org/img/wn/" + current.weather[0].icon + ".png";
             var currentUV = current.uvi;
             var currentHum = current.humidity + "%";
 
-            // generate current card based on current weather variables
-            var currentCard = $('<div class="col"><div class="card"><div class="card-body"><h2>' + searchCity + " (" + currentDate + ")" + '<img id="current-icon" src=' + currentIconURL +'></h2><div id="current-info"><p>Temperature: ' + currentTemp + '</p><p>Humidity: ' + currentHum + '</p><p>Windspeed: ' + windSpeedMPH + '</p><p>UV Index: ' + currentUV + '</p></div></div></div></div >')
-
-            // append current card to document
-            $("#current-card").append(currentCard);
-
+            $("#current-header").text(searchCity + " (" + currentDate + ")");
+            $("#current-temp").html(currentTemp);
+            $("#current-hum").text(currentHum);
+            $("#current-wind").text(windSpeed);
+            $("#current-uv").text(currentUV);
+            $("current-icon").attr("src", currentIconURL);
 
 
             // ****** 5-DAY FORECAST ******** //
             var daily = response.daily
-
-            // generate and append forecast header to the DOM
-            var forecastHeader = $('<h4>5-Day Forecast:</h4>');
-            $("#forecast-header").append(forecastHeader);
-
-
+            
             // loops through 5 days of daily forcast data
             for (var i = 1; i < 6; i++) {
                 
@@ -78,12 +73,11 @@ function getWeatherData(searchCity) {
                 var dailyHum = daily[i].humidity + "%";
                 var dailyIconURL = "http://openweathermap.org/img/wn/" + daily[i].weather[0].icon + ".png";
 
-                // generate new daily forecast card using variables
-                var dailyCard = $('<div class="col forecast-card"><div class= "card text-white bg-primary"><div class="card-body"><h5 class="card-title">' + dailyDate + '</h5><img class="forecast-icon" src=' + dailyIconURL + '><p class="card-text">Temp: ' + dailyTemp + '</p><p class="card-text">Humidity: '+ dailyHum + '</p></div></div></div>');
+                $(".daily-date")[i - 1].textContent = dailyDate;
+                $(".daily-temp")[i - 1].innerHTML = dailyTemp;
+                $(".daily-hum")[i - 1].textContent = dailyHum;
+                $(".daily-icon")[i - 1].setAttribute("src", dailyIconURL);
 
-
-                // append new daily card to forecast cards div
-                $("#forecast-cards").append(dailyCard);
             }
         })
     })
@@ -99,17 +93,21 @@ function getWeatherData(searchCity) {
 $(document).ready(function () {
 
     $("#search-btn").on("click", function(event) {
-        // event.preventDefault();
-        searchCity = $("#search-input").val();
-
-        getWeatherData(searchCity);
-        genCityButton();
+        event.preventDefault();
+        var searchInput = $("#search-input").val().trim();
+        if (searchInput !== "") {
+            searchCity = searchInput;
+            getWeatherData(searchCity);
+            genCityButton();
+            searchArr.push(searchCity);
+            lastCity = searchCity;
+        };
     });
 
     // * Create event listener for when a user clicks on a city from search history
     //      - calls ajax function to pull data from API and render to DOM
     $(document).on("click", ".city-btn", function(event) {
-        // event.preventDefault();
+        event.preventDefault();
         searchCity = $(this).text();
         getWeatherData(searchCity);
     });
@@ -121,12 +119,16 @@ function genCityButton() {
     var cityBtn = $('<button type="button" class="list-group-item list-group-item-action city-btn"></button>')
     cityBtn.text(searchCity);
     $("#city-list").append(cityBtn);
-}
-
+};
 
 // * Create a funciton to store data in local storage
 //      - store search history
 //      - store last searched city
+function setStorage() {
+    
+}
+
+
 // * Create a function to pull from local storage
 //      - pulls search history
 //      - pulls last searched city
