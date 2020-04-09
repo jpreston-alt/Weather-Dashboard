@@ -52,7 +52,7 @@ function getWeatherData(searchCity) {
             $("#current-temp").html(currentTemp);
             $("#current-hum").text(currentHum);
             $("#current-wind").text(windSpeed);
-            $("current-icon").attr("src", currentIconURL);
+            $("#current-icon").attr("src", currentIconURL);
             $("#current-uv").text(currentUV);
 
             // colorize UV index element depeding on value
@@ -114,7 +114,7 @@ $(document).ready(function () {
             searchCity = searchInput;
             getWeatherData(searchCity);
             searchArr.push(searchCity);
-            renderButtons();
+            renderCityBtns();
             lastCity = searchCity;
             setStorage();
         };
@@ -132,18 +132,17 @@ $(document).ready(function () {
     $(document).on("click", "#clear-btn", function (event) {
         event.preventDefault();
         searchArr = [];
-        renderButtons();
+        renderCityBtns();
         setStorage();
     });
 
 });
 
 // create funciton to generate city buttons
-function renderButtons() {
+function renderCityBtns() {
     $("#city-list").empty();
     for (var i = 0; i < searchArr.length; i++) {
-        var cityBtn = $('<button type="button" class="list-group-item list-group-item-action city-btn"></button>')
-        cityBtn.text(searchArr[i]);
+        var cityBtn = $("<a class='city-btn list-item'>" + searchArr[i] + "</a>")
         $("#city-list").append(cityBtn);
     }
 };
@@ -162,7 +161,7 @@ function pullStorage() {
     if (searchHistory !== null) {
         searchArr = searchHistory;
         lastCity = searchArr[searchArr.length - 1];
-        renderButtons();
+        renderCityBtns();
     };
 };
 

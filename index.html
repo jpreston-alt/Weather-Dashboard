@@ -7,7 +7,7 @@
     <title>Weather Dashboard</title>
 
     <!-- Link Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
 
     <!-- Link my CSS -->
     <link rel="stylesheet" href="style.css">
@@ -18,14 +18,149 @@
 </head>
 <body>
 
-    <div class="container"></div>
-        <nav class="navbar navbar-dark bg-dark text-center">
+    <div class="has-text-centered">
+    <nav class="navbar">
+        <div class="navbar-item">
             <h1>Weather Dashboard</h1>
-        </nav>
+        </div>
+    </nav>
     </div>
 
 
-    <div class="row">
+    
+    
+    <div class="columns">
+        <div class="container">
+            <div class="column" id="search-column">
+                <aside class="menu has-text-centered">
+                    <p class="menu-label">
+                        Search for a City:
+                    </p>
+                    
+                    <div class="field has-addons ">
+                        <div class="control is-expanded">
+                            <input class="input" type="text" id="search-input">
+                        </div>
+                        <div class="control">
+                            <button class="button is-primary" id="search-btn"><span class="icon">
+                                <i class="fas fa-search"></i>
+                            </span></a>
+                        </div>
+                    </div>
+                    
+
+                    <div class="list is-hoverable" id="city-list">
+                        <!-- add city buttons here -->
+                    </div>
+
+                    <div class="has-text-centered">
+                        <button type="button" class="button is-primary" id="clear-btn">Clear History</button>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+        <div class="container main-content">
+            <div class="column">
+                <div class="columns">
+                    <div class="column">
+                        <div class="card">
+                            <header>
+                                <h2 class="card-header-title">
+                                    <span id="current-header"></span>    <img id="current-icon" src="">
+                                </h2>
+                            </header>
+                            <!-- <hr style="margin: 0px"> -->
+                            <div id="current-info" class="card-content">
+                                <div>
+                                    <p>Temperature: <span id="current-temp"></span></p>
+                                </div>
+                                <div>
+                                    <p>Humidity: <span id="current-hum"></span></p>
+                                </div>
+                                <div>
+                                    <p>Windspeed: <span id="current-wind"></span></p>
+                                </div>
+                                <div>
+                                    <p>UV Index: <span id="current-uv"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column menu-label">
+                    <h4>5-Day Forecast:</h4>
+                </div>
+
+                <div class="columns">
+                    <div class="column">
+                        <div class="card forecast-card">
+                            <div class="card-content daily-card">
+                                <h5 class="card-title daily-date"></h5>
+                                <img class="daily-icon" src="">
+                                <p class="card-text">Temp: <span class="daily-temp"></span></p>
+                                <p class="card-text">Humidity: <span class="daily-hum"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="card forecast-card">
+                            <div class="card-content daily-card">
+                                <h5 class="card-title daily-date"></h5>
+                                <img class="daily-icon" src="">
+                                <p class="card-text">Temp: <span class="daily-temp"></span></p>
+                                <p class="card-text">Humidity: <span class="daily-hum"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="card forecast-card">
+                            <div class="card-content daily-card">
+                                <h5 class="card-title daily-date"></h5>
+                                <img class="daily-icon" src="">
+                                <p class="card-text">Temp: <span class="daily-temp"></span></p>
+                                <p class="card-text">Humidity: <span class="daily-hum"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="card forecast-card">
+                            <div class="card-content daily-card">
+                                <h5 class="card-title daily-date"></h5>
+                                <img class="daily-icon" src="">
+                                <p class="card-text">Temp: <span class="daily-temp"></span></p>
+                                <p class="card-text">Humidity: <span class="daily-hum"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="card forecast-card">
+                            <div class="card-content daily-card">
+                                <h5 class="card-title daily-date"></h5>
+                                <img class="daily-icon" src="">
+                                <p class="card-text">Temp: <span class="daily-temp"></span></p>
+                                <p class="card-text">Humidity: <span class="daily-hum"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- <div class="container">
+        <nav class="navbar navbar-dark bg-dark text-center">
+            <h1>Weather Dashboard</h1>
+        </nav>
+    </div> -->
+
+
+    <!-- <div class="row">
         <div class="col-md-3" id="sidebar">
             <div> 
                 <h5>Search for a City:</h5>
@@ -39,13 +174,7 @@
             </div>
 
             <div class="list-group" id="city-list">
-                <!-- SEARCH HISTORY BUTTONS GO HERE -->
 
-                <!-- <button type="button" class="list-group-item list-group-item-action active">Seattle</button>
-                <button type="button" class="list-group-item list-group-item-action">Tampa</button>
-                <button type="button" class="list-group-item list-group-item-action">Austin</button>
-                <button type="button" class="list-group-item list-group-item-action">Barcelona</button>
-                <button type="button" class="list-group-item list-group-item-action">Paris</button> -->
             </div>
                 
             <div class="text-center">
@@ -136,7 +265,7 @@
             </div>
 
         </div>
-    </div>
+    </div> -->
 
 
     <!-- Link jQuery -->
