@@ -74,12 +74,6 @@ a.list-item:hover {
     line-height: 2rem;
 }
 
-
-.card-text {
-    font-weight: lighter;
-}
-
-
 /* UV INDEX CLASSES */
 #current-uv {
     padding: 8px;
