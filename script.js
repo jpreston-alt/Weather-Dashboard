@@ -1,5 +1,5 @@
 // * Create global variables
-var searchArr = ["Seattle"];
+var searchArr = [];
 var lastCity;
 var searchCity = "Seattle";
 
@@ -112,6 +112,7 @@ $(document).ready(function () {
     $(document).on("click", ".city-btn", function(event) {
         event.preventDefault();
         searchCity = $(this).text();
+        lastCity = searchCity;
         getWeatherData(searchCity);
     });
 
