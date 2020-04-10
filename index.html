@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,7 @@
     <script src="https://kit.fontawesome.com/89237385c4.js" crossorigin="anonymous"></script>
 
 </head>
+
 <body>
 
     <!-- header -->
@@ -26,11 +28,11 @@
             </div>
         </nav>
     </div>
-    
+
     <!-- side bar -->
     <div class="columns">
-        <div class="container">
-            <div class="column" id="search-column">
+        <div>
+            <div class="column container" id="search-column">
                 <aside class="menu has-text-centered">
                     <p class="menu-label">
                         Search for a City:
@@ -41,8 +43,8 @@
                         </div>
                         <div class="control">
                             <button class="button is-primary" id="search-btn"><span class="icon">
-                                <i class="fas fa-search"></i>
-                            </span></a>
+                                    <i class="fas fa-search"></i>
+                                </span></a>
                         </div>
                     </div>
                     <div class="list is-hoverable" id="city-list">
@@ -56,7 +58,7 @@
         </div>
 
         <!-- main content -->
-        <div class="main-content">
+        <div class="main-content container">
             <div class="column">
                 <div class="columns">
                     <div class="column">
@@ -65,7 +67,7 @@
                         <div class="card">
                             <header>
                                 <h2 class="card-header-title">
-                                    <span id="current-header"></span>       
+                                    <span id="current-header"></span>
                                     <img id="current-icon" src="">
                                 </h2>
                             </header>
@@ -151,13 +153,14 @@
 
 
     <!-- Link jQuery -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> 
-   
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
     <!-- Link js file -->
     <script src="script.js"></script>
 
     <!-- link moment.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    
+
 </body>
+
 </html>
