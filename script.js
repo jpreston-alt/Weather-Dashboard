@@ -1,15 +1,5 @@
-// ********* TO DO ************ //
-// * Create HTML page layout
-// * Style using Bootstrap and my own stylesheet
-
-
 // * Create global variables
-//      - elements needed from HTML
-//      - search history array
-//      - last searched city
-//      - searchCity (current)
-
-var searchArr = [];
+var searchArr = ["Seattle"];
 var lastCity;
 var searchCity = "Seattle";
 
@@ -99,17 +89,15 @@ function getWeatherData(searchCity) {
 };
 
 
-// * Create event listener for when user types in a new city to search bar and clicks submit 
-//      - changes searchCity variable
-//      - calls ajax function to pull data from API and render to DOM
-//      - adds city to search history (creates new item to click on)
-//      - pushes new city to local storage (call push local storage function)
-
+// * Create event listeners
 $(document).ready(function () {
 
+    // when user clicks search button
     $("#search-btn").on("click", function(event) {
         event.preventDefault();
         var searchInput = $("#search-input").val().trim();
+
+        // if search input isn't blank
         if (searchInput !== "") {
             searchCity = searchInput;
             getWeatherData(searchCity);
@@ -120,40 +108,43 @@ $(document).ready(function () {
         };
     });
 
-    // * Create event listener for when a user clicks on a city from search history
-    //      - calls ajax function to pull data from API and render to DOM
+    // when user clicks on city button from search history
     $(document).on("click", ".city-btn", function(event) {
         event.preventDefault();
         searchCity = $(this).text();
         getWeatherData(searchCity);
     });
 
-    // Create event listener for clear button
+    // when user clicks clear button
     $(document).on("click", "#clear-btn", function (event) {
         event.preventDefault();
         searchArr = [];
         renderCityBtns();
         setStorage();
     });
-
 });
 
-// create funciton to generate city buttons
+// Create funciton to generate city buttons
 function renderCityBtns() {
+
+    // start by emptying list
     $("#city-list").empty();
+
+    // create new button for each city in searchArr
     for (var i = 0; i < searchArr.length; i++) {
         var cityBtn = $("<a class='city-btn list-item'>" + searchArr[i] + "</a>")
         $("#city-list").append(cityBtn);
     }
 };
 
-// * Create a funciton to store search history in local storage
+
+// Create a funciton to store search history in local storage
 function setStorage() {
     JSONsearchArr = JSON.stringify(searchArr);
     localStorage.setItem("search-history", JSONsearchArr);
 };
 
-// * Create a function to pulls search history from local storage
+// Create a function to pulls search history from local storage
 function pullStorage() {
     var searchHistory = JSON.parse(localStorage.getItem("search-history"));
 
@@ -166,9 +157,6 @@ function pullStorage() {
 };
 
 // * Create an init function
-//      - calls function to pull from local storage
-//      - calls function to render from local storage
-//      - sets searchedCity to last searched city from local storage
 function init() {
     pullStorage();
     if (lastCity) {
