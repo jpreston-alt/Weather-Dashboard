@@ -99,7 +99,7 @@ $(document).ready(function () {
 
         // if search input isn't blank
         if (searchInput !== "") {
-            searchCity = searchInput;
+            searchCity = formatCityName(searchInput);
             getWeatherData(searchCity);
             searchArr.push(searchCity);
             renderCityBtns();
@@ -136,6 +136,11 @@ function renderCityBtns() {
         var cityBtn = $("<a class='city-btn list-item'>" + searchArr[i] + "</a>")
         $("#city-list").append(cityBtn);
     }
+};
+
+// Funtion to capitalize city name no matter what user enters
+function formatCityName(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
 
