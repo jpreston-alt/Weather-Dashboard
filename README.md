@@ -26,7 +26,7 @@ This project taught me so much about working with server-side API's. I learned h
 - Type in a city name into the search bar and press search button
 - View current and future weather conditions for that city
 - Click on a city in your search history to be presented with that city's weather data again
-- To delete search history, click the clear history button at the bottom of the search bar
+- To delete search history, click the clear history button at the bottom of the search bar.
 
 ## Deployed Site
 
