@@ -6,30 +6,27 @@ This application allows the user to search for a city and be presented with the 
 
 The way this application works is by taking in user input (the city name) and requesting the latitude and longitude points of that city from the OpenCage Geocoder API. Those returned points are then used to request data from the Open Weather Maps API about the current and future weather conditions for that city.
 
-This project taught me so much about working with server-side API's. I learned how to request data from third-party servers using AJAX, and how to use jQuery to work with that data that is returned in JSON format. I learned alot about the client-server request-response pattern, and about working with asynchronous function calls.
-
+This project taught me so much about working with server-side API's. I learned how to request data from third-party servers using AJAX, and how to use jQuery to work with that data that is returned in JSON format. I learned alot about the client-server request-response pattern, and about working with asynchronous function calls
 
 ![](weather-dashboard.gif)
 
-
 ## Technologies Used
 
-* Open Weather Maps API
-* OpenCage Geocoder API
-* JavaScript
-* jQuery
-* Moment.js
-* Bulma
-* HTML
-* CSS
-
+- Open Weather Maps API
+- OpenCage Geocoder API
+- JavaScript
+- jQuery
+- Moment.js
+- Bulma
+- HTML
+- CSS
 
 ## How to Use
 
-* Type in a city name into the search bar and press search button
-* View current and future weather conditions for that city
-* Click on a city in your search history to be presented with that city's weather data again
-* To delete search history, click the clear history button at the bottom of the search bar
+- Type in a city name into the search bar and press search button
+- View current and future weather conditions for that city
+- Click on a city in your search history to be presented with that city's weather data again
+- To delete search history, click the clear history button at the bottom of the search bar
 
 ## Deployed Site
 
